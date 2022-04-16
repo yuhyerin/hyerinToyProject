@@ -5,7 +5,7 @@ import com.riri.entity.Account;
 
 public interface AccountService {
 	
-	void register(AccountDto dto);
+	AccountDto register(AccountDto dto);
 	
 	default AccountDto entityToDto(Account entity) {
 		return AccountDto.builder()

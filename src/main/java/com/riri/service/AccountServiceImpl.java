@@ -1,6 +1,7 @@
 package com.riri.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.riri.dto.AccountDto;
@@ -22,12 +23,16 @@ public class AccountServiceImpl implements AccountService{
 //	@Autowired
 	private final AccountRepository accountRepo;
 	
+	private final PasswordEncoder encoder;
+	
 //	@Autowired
 //	private AccountRepository accountRepo;
 	
 	@Override
 	public AccountDto register(AccountDto dto) {
-		return entityToDto(accountRepo.save(dtoToEntity(dto)));
+		dto.setPassword(encoder.encode(dto.getPassword()));
+		Account entity = AccountService.dtoToEntity(dto);
+		return AccountService.entityToDto(accountRepo.save(entity));
 	}
 	
 }

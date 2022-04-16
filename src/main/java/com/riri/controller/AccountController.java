@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/accounts")
+@RequestMapping("/api/v1")
 public class AccountController {
 	
 //	@Autowired
@@ -28,11 +29,17 @@ public class AccountController {
 	// 응답타입 Map파... Dto파... 
 	
 	// 회원가입용. 
-	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping("/accounts")
 	public ResponseEntity<AccountDto> signUp(@RequestBody AccountDto account){
 		log.info(account.getEmail()+","+account.getName());
 		log.info(accountService.toString());
 		return new ResponseEntity<>(accountService.register(account), HttpStatus.OK);
+	}
+	
+	@GetMapping("/test")
+	public ResponseEntity<AccountDto> test(){
+		log.info(">>> test controller ");
+		return new ResponseEntity<>(null, HttpStatus.OK);
 	}
 	
 }

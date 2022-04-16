@@ -7,15 +7,16 @@ public interface AccountService {
 	
 	AccountDto register(AccountDto dto);
 	
-	default AccountDto entityToDto(Account entity) {
+	static AccountDto entityToDto(Account entity) {
 		return AccountDto.builder()
 				.accountId(entity.getAccountId())
 				.email(entity.getEmail())
 				.name(entity.getName())
+				.password(entity.getPassword())
 				.build();
 	}
 	
-	default Account dtoToEntity(AccountDto dto) {
+	static Account dtoToEntity(AccountDto dto) {
 		return Account.builder()
 				.accountId(dto.getAccountId())
 				.email(dto.getEmail())
